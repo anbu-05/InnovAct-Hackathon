@@ -21,7 +21,7 @@ this reduces the need for long-range RF and heavy, expensive payloads on every d
 
 ---
 
-## Architecture
+## Architecture 
 
 * **search swarm (secondary):** many low-cost/lightweight drones with short-range RF, basic cameras/thermal sensors, limited onboard processing.
 * **transmit swarm (primary):** fewer, higher-capability drones with stronger RF, better processors and endurance; act as relays to base.
@@ -46,7 +46,7 @@ common constraints to keep in mind: base-station distance, time-to-search, safet
 
 ---
 
-## Hardware & cost notes
+## Hardware & cost notes (reference + prototype targets)
 
 > **reference commercial platforms**
 
@@ -87,12 +87,36 @@ common constraints to keep in mind: base-station distance, time-to-search, safet
 
 ---
 
-## Why swarm helps
+## Why swarm helps 
 
-* **faster coverage:** parallel search vs serial scanning
-* **cost & risk:** cheaper search drones are cheaper to replace; transmit drones avoid going into dangerous zones
-* **redundancy:** many cheap nodes → graceful degradation
-* **initial cost:** can be higher (more units), but operating cost in risky deployments is lower
+* **faster coverage:** parallel search vs serial scanning.
+* **cost & risk:** cheaper search drones are cheaper to replace; transmit drones avoid going into dangerous zones.
+* **redundancy:** many cheap nodes → graceful degradation.
+* **initial cost:** can be higher (more units), but operating cost in risky deployments is lower.
+
+### Visual comparison
+
+Below are two placeholders (replace `<SWARM_IMAGE_LINK>` and `<SINGLE_IMAGE_LINK>` with your image URLs or local paths):
+
+**Swarm setup (larger effective coverage for same price)**
+
+![Swarm setup placeholder](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/swarm.jpg)
+*Caption: multiple secondary search drones + a primary relay — covers a much larger effective area for the same total budget.*
+
+**Traditional single/high-end setup**
+
+![Traditional single-drone placeholder](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/single.jpg)
+*Caption: a single high-capability drone — similar total cost but smaller effective coverage and poor obstacle resilience.*
+
+**Key takeaways from the images:**
+
+* **Much larger scan radius for the same price:** for an equivalent total budget (e.g., one high-end drone vs a transmit drone + several cheaper search drones), the swarm can cover a wider area because search nodes are distributed — each contributes a local sensing radius that, together, forms a much larger union of coverage.
+* **Better obstacle handling & agility:** when an obstacle blocks a search path, individual cheap search drones can re-route locally or other nearby search drones can cover the occluded region immediately. a single drone must change its whole scan course (and therefore loses coverage elsewhere) to go around obstacles, which increases time-to-search for the entire area.
+
+### Streaming & processing assumptions
+
+* this architecture relies on **each search drone having just enough processing power to encode and stream one video feed** into the mesh. they do not need heavy onboard compute for complex fusion — minimal encoding + basic detection is enough.
+* the mesh routing algorithm will select an **optimal path** (minimizing number of hops and relays) so that the minimum number of transmit-capable drones are used to get video from a search drone to the base. this optimization is part of future work (routing + link-budget aware path selection).
 
 ---
 
@@ -176,7 +200,7 @@ python3 ./BaseServer.py --host 0.0.0.0 --port 9000
 
 ---
 
-## Folder structure
+## Folder structure (suggested)
 
 ```
 / (repo root)
@@ -189,3 +213,10 @@ python3 ./BaseServer.py --host 0.0.0.0 --port 9000
 ├─ docs/               # optional: design docs, CAD, BOM
 └─ README.md
 ```
+
+---
+
+## Contribution & contact
+
+* PRs welcome. open issues for bugs / feature requests.
+* if you want to prototype hardware, open an issue describing parts and tests and we can add a `hardware/` folder and a BOM.
