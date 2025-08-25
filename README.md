@@ -83,7 +83,12 @@ common constraints to keep in mind: base-station distance, time-to-search, safet
   * sensors: wide-angle camera, laser rangefinder, robust processor for streaming
   * form: fixed-wing or hybrid for endurance
 
-**note:** these are target/spec suggestions for prototyping and cost comparisons — tune to actual parts when building.
+**note:** 
+* these are target/spec suggestions for prototyping and cost comparisons — tune to actual parts when building. 
+
+* Streaming & processing assumptions
+    * this architecture relies on **each search drone having just enough processing power to encode and stream one video feed** into the mesh. they do not need heavy onboard compute for complex fusion — minimal encoding + basic detection is enough.
+    * the mesh routing algorithm will select an **optimal path** (minimizing number of hops and relays) so that the minimum number of transmit-capable drones are used to get video from a search drone to the base. this optimization is part of future work (routing + link-budget aware path selection).
 
 ---
 
@@ -98,25 +103,16 @@ common constraints to keep in mind: base-station distance, time-to-search, safet
 
 Below are two placeholders (replace `<SWARM_IMAGE_LINK>` and `<SINGLE_IMAGE_LINK>` with your image URLs or local paths):
 
-**Swarm setup (larger effective coverage for same price)**
 
-![Swarm setup placeholder](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/swarm.jpg)
-*Caption: multiple secondary search drones + a primary relay — covers a much larger effective area for the same total budget.*
+![Swarm setup](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/swarm.jpg) *Caption: multiple secondary search drones + a primary relay — covers a much larger effective area for the same total budget. for an equivalent total budget (e.g., one high-end drone vs a transmit drone + several cheaper search drones), the swarm can cover a wider area because search nodes are distributed — each contributes a local sensing radius that, together, forms a much larger union of coverage.*
 
-**Traditional single/high-end setup**
 
-![Traditional single-drone placeholder](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/single.jpg)
-*Caption: a single high-capability drone — similar total cost but smaller effective coverage and poor obstacle resilience.*
 
-**Key takeaways from the images:**
+![Traditional single-drone](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/single.jpg)
+*Caption: a single high-capability drone — similar total cost but smaller effective coverage and poor obstacle resilience. when an obstacle blocks a search path, individual cheap search drones can re-route locally or other nearby search drones can cover the occluded region immediately. a single drone must change its whole scan course (and therefore loses coverage elsewhere) to go around obstacles, which increases time-to-search for the entire area.*
+*
 
-* **Much larger scan radius for the same price:** for an equivalent total budget (e.g., one high-end drone vs a transmit drone + several cheaper search drones), the swarm can cover a wider area because search nodes are distributed — each contributes a local sensing radius that, together, forms a much larger union of coverage.
-* **Better obstacle handling & agility:** when an obstacle blocks a search path, individual cheap search drones can re-route locally or other nearby search drones can cover the occluded region immediately. a single drone must change its whole scan course (and therefore loses coverage elsewhere) to go around obstacles, which increases time-to-search for the entire area.
-
-### Streaming & processing assumptions
-
-* this architecture relies on **each search drone having just enough processing power to encode and stream one video feed** into the mesh. they do not need heavy onboard compute for complex fusion — minimal encoding + basic detection is enough.
-* the mesh routing algorithm will select an **optimal path** (minimizing number of hops and relays) so that the minimum number of transmit-capable drones are used to get video from a search drone to the base. this optimization is part of future work (routing + link-budget aware path selection).
+![simple simulation of search pattern](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/simulation.mp4) *Caption: The simulation highlights the effectiveness of swarm-based search compared to a single drone. While the single drone (left) covers a narrow path with limited visibility, the swarm (right) achieves broader, parallel coverage, significantly reducing blind spots and improving efficiency in obstacle-rich environments.*
 
 ---
 
