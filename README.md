@@ -10,6 +10,8 @@ we're building a prototype and simulator for a two-layer swarm SAR system: light
 
 this reduces the need for long-range RF and heavy, expensive payloads on every drone — search drones can be cheaper, take more risks, and search in parallel.
 
+PPT: https://docs.google.com/presentation/d/1-XvLFyFc5HB_LXWbjHM3L3MJnmxPTE0SVv99zVVO63E/edit?usp=sharing
+
 ---
 
 ## Features
