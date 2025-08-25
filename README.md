@@ -101,8 +101,6 @@ common constraints to keep in mind: base-station distance, time-to-search, safet
 
 ### Visual comparison
 
-Below are two placeholders (replace `<SWARM_IMAGE_LINK>` and `<SINGLE_IMAGE_LINK>` with your image URLs or local paths):
-
 
 ![Swarm setup](https://github.com/anbu-05/InnovAct-Hackathon/blob/main/media/swarm.jpg) *Caption: multiple secondary search drones + a primary relay — covers a much larger effective area for the same total budget. for an equivalent total budget (e.g., one high-end drone vs a transmit drone + several cheaper search drones), the swarm can cover a wider area because search nodes are distributed — each contributes a local sensing radius that, together, forms a much larger union of coverage.*
 
